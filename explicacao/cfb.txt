@@ -1,0 +1,64 @@
+key 35035 (transformando para asc2 e retirando 32 que é os valores iniciais que não quero)
+
+3 - 19
+5 - 21
+0 - 16
+
+texto = "aulasegcomp1"
+a = 65 | u = 85 | l = 76 | s = 83 | e = 69 | g = 71 | c = 67 | o = 79 | m = 77 | p = 80 | 1 = 17
+
+IV = "AEIOU"
+ A = 33 | E = 37 | I = 41 | O = 47 | U = 53
+
+Bloco 1 (inicia com IV = AEIOU)
+
+A: 33 + 19 = 52 = T (keystream pos1)
+E: 37 + 21 = 58 = Z (keystream pos2)
+I: 41 + 16 = 57 = Y (keystream pos3)
+O: 47 + 19 = 66 = b (keystream pos4)
+U: 53 + 21 = 74 = j (keystream pos5)
+
+XOR
+a = 65 XOR 52 = 117 ->  6
+u = 85 XOR 58 = 111 -> 0
+l = 76 XOR 57 = 117 -> 6
+a = 65 XOR 66 = 3 -> #
+s = 83 XOR 74 = 25 -> 9
+
+
+
+Bloco 2 (inicia com bloco anterior = 606#9)
+
+6: 117 + 19 = 136 (vira 41) = I
+0: 111 + 21 = 132 (vira 37) = E
+6: 117 + 16 = 133 (vira 38) = F
+#: 3 + 19 = 22 = 6
+9: 25 + 21 = 46 = N
+
+XOR
+e = 69 XOR 41 -> -
+g = 71 XOR 37 -> #
+c = 67 XOR 38 -> &
+o = 79 XOR 22 -> y
+m = 77 XOR 46 -> $
+
+
+
+
+Bloco 3 (inicia com bloco anterior = -#&y$)
+
+-: 108 + 19 = 127 (vira 32) = @
+#: 98 + 21 = 119 (vira 24) = 8
+&: 101 + 16 = 117 (vira 22) = 6
+y: 89 + 19 = 108 (vira 13) = -
+$: 99 + 21 = 120 (vira 25) = 9
+
+XOR
+p = 80 XOR 32 = 112 -> 1
+1 = 17 XOR 24 = 9 -> )
+" " = 0 XOR 22 = 22 -> 6
+" " = 0 XOR 13 = 13 -> -
+" " = 0 XOR 25 = 25 -> 9
+
+
+Final:606#9-#&y$1)6-9
